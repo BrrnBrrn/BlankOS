@@ -2,6 +2,34 @@
 <html>
 <head>
   <style>
+    body {
+      background-color: #0d0d0d;color: #e6e6e6;
+      font-family: Georgia, 'Times New Roman', serif;
+      margin: 0; text-align: center; display: flex;
+      flex-direction: column;  align-items: center; justify-content: center;
+      min-height: 100vh;
+     
+    }
+    .topbar {
+      position: fixed; top: 0; left: 0;  width: 100%; height: 28px;
+      background-color: #0d0d0d;
+      display: flex;align-items: center;justify-content: space-between;
+      padding: 0 14px; font-size: 13px; color: #dad0d0; font-family: sf-pro-display, sans-serif;letter-spacing: 1px;
+      box-sizing: border-box;
+      opacity: 0;
+      animation: slide 0.6s ease-out forwards; animation-delay: 5.3s;
+
+    }
+    .background {      
+      opacity: 0;
+      background-image: url('123.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: fixed;top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+      animation: fadeIn 0.6s ease-out forwards; animation-delay: 5.3s;
+    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -13,18 +41,90 @@
       }
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slide {
+      from {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
     .fade-in {
       opacity: 0;
       animation: fadeInUp 2s ease-out forwards;
     }
 
+    .startup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      animation: fadeOut 0.7s ease-out forwards;
+      animation-delay: 4.6s;
+    }
+
+    .loading-bar {
+      width: 220px;
+      height: 3px;
+      background-color: #2a2a2a;
+      border-radius: 2px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards; animation-delay: 2s;
+    }
+
+    .loading-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: #e6e6e6;
+      border-radius: 2px;
+      animation: loadFill 2.2s ease-in-out forwards;
+      animation-delay: 2.1s;
+    }
+
+    @keyframes loadFill {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
   </style>
 </head>
-  <body style="background-color: #0d0d0d; color: #e6e6e6; font-family: Georgia, 'Times New Roman', serif;  margin: 0; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+  <body>
+  
+    <div class="startup">
+    <h1 class="fade-in" style="margin: 0 0 8px 0; font-weight: 300; letter-spacing: 2px;">BlankOS</h1>
 
-  <h1 class="fade-in" style="margin: 0 0 8px 0; font-weight: 300; letter-spacing: 2px;">BlankOS</h1>
+    <div class="loading-bar">
+      <div class="loading-bar-fill"></div>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <p>BlankOS</p>
+    <p id="time">Time</p>
+  </div>
+  <div class="background"></div>
   
-  
+  <script>
+    function updateTime() {
+      var Timebubble = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      var timetext = document.querySelector("#time");
+      timetext.innerHTML = Timebubble;
+    }
+   updateTime();
+    setInterval(updateTime, 1000);
+  </script>
 </body>
-
 </html>
